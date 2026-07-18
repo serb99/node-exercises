@@ -1,4 +1,1 @@
-app.log
-output-ERROR.log
-output-WARNING.log
-output-INFO.log
+output-*.log
