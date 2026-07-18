@@ -2,7 +2,7 @@ const fs = require('node:fs/promises');
 
 async function openLogFile(fileName){
     try{
-        const fileHandle = await fs.open(`${fileName}`, 'r');
+        const fileHandle = await fs.open(`./${fileName}`, 'r');
         return fileHandle;
     }
     catch(error){
