@@ -1,0 +1,4 @@
+node_modules/
+.env
+*.log
+exercise1-file-organizer/input/
