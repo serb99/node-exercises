@@ -68,7 +68,7 @@ async function parseLogFile(fileName, level){
         console.log(`Output saved:  ./output-${level}.log`)
         console.log(`===================\n`)
     }catch(error){
-        console.error(`Error: ${error.message}`);
+        console.log(`Error: ${error.message}`);
         process.exit(1);
     }
 })();
