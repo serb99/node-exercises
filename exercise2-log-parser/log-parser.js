@@ -15,9 +15,10 @@ async function parseLogFile(fileName, level){
 
     try{
         fileHandle = await openLogFile(fileName);
+        const outputFile = `./output-${level}.log`;
+        await fs.writeFile(outputFile, '');
         // Create the async iterator object to read the file line by line
         const lineReader = fileHandle.readLines();
-        const outputFile = `./output-${level}.log`;
         const summary = {
             INFO: 0,
             WARNING: 0,
@@ -25,10 +26,8 @@ async function parseLogFile(fileName, level){
             total:0
         };
 
-        await fs.writeFile(outputFile, '');
-
         for await (const line of lineReader){
-            const parts = line.split(' ');
+            const parts = line.split(' ')
             const lineLevel = parts[2];
 
             summary.total++;
