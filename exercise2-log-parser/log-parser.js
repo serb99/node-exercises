@@ -10,12 +10,13 @@ async function openLogFile(fileName){
     }
 }
 
-async function parseLogFile(fileName, level){
+async function parseLogFile(fileName, level, output = null){
     let fileHandle;
 
     try{
         fileHandle = await openLogFile(fileName);
-        const outputFile = `./output-${level}.log`;
+        const outputFile = output ? `./${output}` 
+            : (level ? `./output-${level}.log` : `./output-all.log`);
         await fs.writeFile(outputFile, '');
         // Create the async iterator object to read the file line by line
         const lineReader = fileHandle.readLines();
@@ -46,28 +47,26 @@ async function parseLogFile(fileName, level){
     }
 }
 
-(async function main(){
-    const fileName = process.argv[2];
-    const level = process.argv[3];
+if (require.main === module) {
+    (async function main(){
+        const fileName = process.argv[2];
+        const level = process.argv[3];
 
-    if (!fileName || !level) {
-        console.error('Usage: node log-parser.js <log_file> <log_level>');
-        process.exit(1);
-    }
+        if (!fileName || !level) {
+            console.error('Usage: node log-parser.js <log_file> <log_level>');
+            process.exit(1);
+        }
 
-    try{
-        const summary = await parseLogFile(fileName, level);
+        try{
+            const summary = await parseLogFile(fileName, level)
+            console.log(`Filter:        ${level}`)
+            console.log(`Total lines:   ${summary.total}`)
+            // rest of console.logs...
+        } catch(error){
+            console.log(`Error: ${error.message}`)
+            process.exit(1)
+        }
+    })()
+}
 
-        console.log(`Filter:        ${level}`)
-        console.log(`Total lines:   ${summary.total}`)
-        console.log(`INFO:          ${summary.INFO}`)
-        console.log(`WARNING:       ${summary.WARNING}`)
-        console.log(`ERROR:         ${summary.ERROR}`)
-        console.log(`Matched:       ${summary[level]}`)
-        console.log(`Output saved:  ./output-${level}.log`)
-        console.log(`===================\n`)
-    }catch(error){
-        console.log(`Error: ${error.message}`);
-        process.exit(1);
-    }
-})();
+module.exports = {openLogFile, parseLogFile};
