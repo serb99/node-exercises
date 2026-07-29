@@ -1,0 +1,10 @@
+2026-07-18 10:23:01 INFO Server started on port 3000
+2026-07-18 10:23:05 INFO Database connected
+2026-07-18 10:24:12 WARNING High memory usage detected
+2026-07-18 10:25:33 ERROR Failed to connect to payment service
+2026-07-18 10:26:01 INFO Request received GET /api/orders
+2026-07-18 10:26:45 ERROR Database connection timeout
+2026-07-18 10:27:12 INFO Request received GET /api/customers
+2026-07-18 10:28:33 WARNING CPU usage above 80%
+2026-07-18 10:29:01 ERROR Payment service unreachable
+2026-07-18 10:30:45 INFO Order created successfully
